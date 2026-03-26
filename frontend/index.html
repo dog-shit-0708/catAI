@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <style>
+    /* 强制移动端显示模式 */
+    @media (min-width: 415px) {
+      html {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      body {
+        width: 414px !important;
+        height: 896px !important; /* iPhone Pro Max 高度 */
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* 模拟iPhone刘海 */
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 30px;
+        background: #000;
+        border-radius: 0 0 20px 20px;
+        z-index: 1000;
+      }
+    }
+  </style>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#667eea" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>校园流浪猫管理系统</title>
+
+  <!-- 移动端优化样式 -->
+  <style>
+    /* 防止FOUC和布局偏移 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    /* 加载时的骨架屏样式 */
+    .app-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 安全区域适配 */
+    @supports (padding: max(0px)) {
+      body {
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
