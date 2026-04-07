@@ -1,0 +1,319 @@
+.page_container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+/* 照片轮播 */
+.cat-cover {
+  width: 100%;
+  height: 600rpx;
+}
+
+.cover-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 信息卡片 */
+.cat-info-card {
+  margin: 30rpx;
+  padding: 40rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.cat-name-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.cat-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.cat-alias {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  color: #666;
+}
+
+/* 领养状态 */
+.adoption-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.status-label {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.status-value {
+  margin-left: 16rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding: 8rpx 0;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140rpx;
+  height: 56rpx;
+}
+
+/* 待领养 - 绿色 */
+.status-0 {
+  color: #07c160;
+  background: #e6f7ed;
+}
+
+/* 领养中 - 橙色 */
+.status-1 {
+  color: #ff8c42;
+  background: #fff0e5;
+}
+
+/* 已领养 - 灰色 */
+.status-2 {
+  color: #999;
+  background: #f5f5f5;
+}
+
+/* 备注 */
+.cat-notes {
+  margin-top: 20rpx;
+}
+
+.notes-label {
+  font-size: 30rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.notes-text {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  margin: 40rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.action-buttons .van-button--primary {
+  background: linear-gradient(135deg, #FF8C42 0%, #FFA86C 100%);
+  border: none;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-size: 32rpx;
+  color: #666;
+}
+
+/* 空状态 */
+.empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-size: 32rpx;
+  color: #999;
+}
+
+/* 投喂记录时间轴卡片 */
+.feeding-timeline-card {
+  margin: 30rpx;
+  padding: 40rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.timeline-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.timeline-count {
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 时间轴列表 */
+.timeline-list {
+  padding-left: 20rpx;
+}
+
+.timeline-item {
+  display: flex;
+  position: relative;
+  padding-bottom: 30rpx;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* 时间线节点 */
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40rpx;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #FF8C42;
+  border: 4rpx solid #fff;
+  box-shadow: 0 2rpx 8rpx rgba(255, 140, 66, 0.4);
+}
+
+.timeline-line {
+  flex: 1;
+  width: 2rpx;
+  background: #e8e8e8;
+  margin-top: 8rpx;
+}
+
+/* 时间轴内容 */
+.timeline-content {
+  flex: 1;
+  margin-left: 20rpx;
+  padding: 24rpx;
+  background: #f8f8f8;
+  border-radius: 16rpx;
+}
+
+.timeline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.timeline-time {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.timeline-user {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.openid-text {
+  font-size: 22rpx;
+  color: #999;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-body {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.food-type {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.food-amount {
+  font-size: 26rpx;
+  color: #666;
+  background: #e8e8e8;
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.timeline-detail {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+}
+
+.timeline-location {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+  gap: 4rpx;
+}
+
+.timeline-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  margin-top: 16rpx;
+}
+
+/* 加载状态 */
+.timeline-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 60rpx 0;
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 空状态 */
+.timeline-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  gap: 20rpx;
+}
+
+.timeline-empty text {
+  font-size: 28rpx;
+  color: #999;
+}

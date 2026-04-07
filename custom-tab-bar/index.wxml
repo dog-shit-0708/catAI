@@ -1,0 +1,8 @@
+<!--custom-tab-bar/index.wxml-->
+<van-tabbar active="{{ active }}" bind:change="onChange" fixed placeholder safe-area-inset-bottom>
+  <van-tabbar-item wx:for="{{ tabs }}" wx:for-item="item" wx:for-index="index" wx:key="url" style="justify-content: center;">
+    <image slot="icon" src="{{ item.src }}" mode="aspectFit" style="width: {{ item.width1 }}px; height: {{ item.height1 }}px;" />
+    <image slot="icon-active" src="{{ item.src }}" mode="aspectFit" style="width: {{ item.width2 }}px; height: {{ item.height2 }}px;" />
+    <text>{{ item.text }}</text>
+  </van-tabbar-item>
+</van-tabbar>

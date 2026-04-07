@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "page-layout": "/components/page-layout/page-layout"
+  },
+  "navigationBarTitleText": "校园猫咪"
+}

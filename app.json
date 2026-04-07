@@ -1,0 +1,87 @@
+{
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/cats/cats",
+        "text": "猫咪"
+      },
+      {
+        "pagePath": "pages/ai/ai",
+        "text": "AI助手"
+      },
+      {
+        "pagePath": "pages/records/weight",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  },
+  "pages": [
+    "pages/index/index",
+    "pages/cats/cats",
+    "pages/cat-detail/cat-detail",
+    "pages/ai/ai",
+    "pages/logs/logs",
+    "pages/records/weight"
+  ],
+  "subPackages": [{
+    "root":"record",
+    "pages":[
+      "pages/feed/feed",
+      "pages/pay/pay",
+      "pages/list/list",
+      "pages/healthManage/healManage"]
+    },
+    {
+      "root":"cat",
+      "pages":[
+        "pages/add/add",
+        "pages/index/index"
+      ],
+     "independent":true 
+    },
+    {
+      "root":"subpkg",
+      "pages":[
+        "pages/checkin/checkin",
+        "pages/favorite-cats/favorite-cats"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/cats/cats":{
+      "packages": ["subpkg"],
+      "network":"wifi"
+    }
+   
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "networkTimeout": {
+    "request": 120000,
+    "connectSocket": 120000,
+    "uploadFile": 120000,
+    "downloadFile": 120000
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

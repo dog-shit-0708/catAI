@@ -1,0 +1,122 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 20}}px">
+  <!-- 加载状态 -->
+  <view wx:if="{{isLoading}}" class="loading-container">
+    <text>加载中...</text>
+  </view>
+  
+  <!-- 猫咪信息 -->
+  <view wx:elif="{{cat}}">
+    <!-- 猫咪照片轮播 -->
+    <view class="cat-cover" wx:if="{{cat.cover_images && cat.cover_images.length > 0}}">
+      <swiper class="cover-swiper" indicator-dots circular>
+        <swiper-item wx:for="{{cat.cover_images}}" wx:key="*this">
+          <image class="cover-image" src="{{item}}" mode="aspectFill" />
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 默认图片 -->
+    <view class="cat-cover" wx:elif="{{cat.profile_image}}">
+      <image class="cover-image" src="{{cat.profile_image}}" mode="aspectFill" />
+    </view>
+
+    <!-- 猫咪基本信息 -->
+    <view class="cat-info-card">
+      <view class="cat-name-section">
+        <text class="cat-name">{{cat.name || ''}}</text>
+        <text wx:if="{{cat.alias}}" class="cat-alias">({{cat.alias}})</text>
+      </view>
+      
+      <!-- 领养状态 -->
+      <view class="adoption-status">
+        <text class="status-label">领养状态：</text>
+        <view class="status-value status-{{cat.adoption_status}}">
+          {{cat.adoption_status === 0 ? '待领养' : (cat.adoption_status === 1 ? '领养中' : '已领养')}}
+        </view>
+      </view>
+
+      <!-- 备注 -->
+      <view class="cat-notes" wx:if="{{cat.notes}}">
+        <text class="notes-label">备注：</text>
+        <text class="notes-text">{{cat.notes}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <van-button 
+        type="{{isFavorited ? 'default' : 'primary'}}" 
+        size="large" 
+        block
+        bind:tap="onFavoriteTap"
+      >
+        {{isFavorited ? '取消关注' : '关注猫咪'}}
+      </van-button>
+      <van-button 
+        type="default" 
+        plain 
+        size="large"
+        block
+        bind:tap="onShareTap"
+      >
+        分享猫咪
+      </van-button>
+    </view>
+
+    <!-- 投喂记录时间轴 -->
+    <view class="feeding-timeline-card">
+      <view class="timeline-header">
+        <text class="timeline-title">投喂记录</text>
+        <text class="timeline-count" wx:if="{{feedings.length > 0}}">共 {{feedings.length}} 条</text>
+      </view>
+      
+      <!-- 加载中 -->
+      <view wx:if="{{isLoadingFeedings}}" class="timeline-loading">
+        <van-loading type="spinner" size="20px" /> 
+        <text>加载中...</text>
+      </view>
+      
+      <!-- 时间轴列表 -->
+      <view wx:elif="{{feedings.length > 0}}" class="timeline-list">
+        <view wx:for="{{feedings}}" wx:key="id" class="timeline-item">
+          <!-- 时间线节点 -->
+          <view class="timeline-node">
+            <view class="timeline-dot"></view>
+            <view wx:if="{{index !== feedings.length - 1}}" class="timeline-line"></view>
+          </view>
+          <!-- 内容卡片 -->
+          <view class="timeline-content">
+            <view class="timeline-header-row">
+              <view class="timeline-time">{{item.feedingTime}}</view>
+              <view class="timeline-user" wx:if="{{item.openid}}">
+                <van-icon name="user-o" size="12px" color="#999" />
+                <text class="openid-text">{{item.openid}}</text>
+              </view>
+            </view>
+            <view class="timeline-body">
+              <text class="food-type">{{item.foodType}}</text>
+              <text class="food-amount" wx:if="{{item.amount}}">{{item.amount}}</text>
+            </view>
+            <view wx:if="{{item.foodDetail}}" class="timeline-detail">
+              {{item.foodDetail}}
+            </view>
+            <view wx:if="{{item.feedingLocation}}" class="timeline-location">
+              <van-icon name="location-o" size="12px" /> {{item.feedingLocation}}
+            </view>
+            <image wx:if="{{item.imageUrl}}" class="timeline-image" src="{{item.imageUrl}}" mode="aspectFill" bind:tap="onPreviewFeedingImage" data-url="{{item.imageUrl}}" />
+          </view>
+        </view>
+      </view>
+      
+      <!-- 空状态 -->
+      <view wx:else class="timeline-empty">
+        <van-icon name="records" size="48px" color="#ccc" />
+        <text>暂无投喂记录</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 无数据状态 -->
+  <view wx:else class="empty-container">
+    <text>未找到猫咪信息</text>
+  </view>
+</view>

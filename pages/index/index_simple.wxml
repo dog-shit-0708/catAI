@@ -1,0 +1,47 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 10}}px">
+  <!-- 顶部横幅 -->
+  <view class="banner-section">
+    <view class="banner-swiper">
+      <view class="banner-item banner-1">
+        <text class="banner-title">校园流浪猫守护</text>
+        <text class="banner-subtitle">用爱守护每一个小生命</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡入口 -->
+  <view class="checkin-section">
+    <view class="section-header">
+      <text class="section-title">今日打卡</text>
+      <text class="user-points">积分: {{userPoints}}</text>
+    </view>
+    <view class="checkin-card" bind:tap="onCheckinTap">
+      <view class="checkin-icon">
+        <text class="icon-text">📝</text>
+      </view>
+      <view class="checkin-content">
+        <text class="checkin-title">投喂打卡</text>
+        <text class="checkin-desc">记录今日投喂，获得爱心积分</text>
+      </view>
+      <view class="checkin-arrow">
+        <text>></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI建议卡片 -->
+  <view class="ai-suggestions-section">
+    <view class="section-header">
+      <text class="section-title">AI 智能建议</text>
+    </view>
+    <view wx:for="{{aiSuggestions}}" wx:key="id" class="suggestion-card">
+      <view class="suggestion-icon {{item.type}}">
+        <text class="icon-text">{{item.icon}}</text>
+      </view>
+      <view class="suggestion-content">
+        <text class="suggestion-title">{{item.title}}</text>
+        <text class="suggestion-desc">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+</view>

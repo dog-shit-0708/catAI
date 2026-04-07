@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "feeding-checkin": "/components/feeding-checkin/feeding-checkin"
+  }
+}

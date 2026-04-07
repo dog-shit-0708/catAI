@@ -1,0 +1,79 @@
+<!-- 投喂打卡弹框组件 -->
+<van-popup show="{{visible}}" position="bottom" round bind:close="onClose">
+  <view class="dialog-header">
+    <text class="dialog-title">投喂打卡</text>
+    <text class="dialog-close" bind:tap="onClose">✕</text>
+  </view>
+  <view class="dialog-form">
+    <!-- 猫咪选择 -->
+    <view class="form-item" bind:tap="onShowCatPicker">
+      <text class="form-label">选择猫咪</text>
+      <view class="form-value {{selectedCat ? '' : 'placeholder'}}">
+        <text wx:if="{{selectedCat}}">{{selectedCat.name}}</text>
+        <text wx:else>请选择猫咪</text>
+        <text class="form-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 食物类型选择 -->
+    <view class="form-item" bind:tap="onShowFoodTypePicker">
+      <text class="form-label">食物类型</text>
+      <view class="form-value {{feedingData.food_type ? '' : 'placeholder'}}">
+        <text wx:if="{{feedingData.food_type}}">{{feedingData.food_type}}</text>
+        <text wx:else>请选择食物类型</text>
+        <text class="form-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 投喂量选择 -->
+    <view class="form-item" bind:tap="onShowAmountPicker">
+      <text class="form-label">投喂量</text>
+      <view class="form-value {{feedingData.amount ? '' : 'placeholder'}}">
+        <text wx:if="{{feedingData.amount}}">{{feedingData.amount}}</text>
+        <text wx:else>请选择投喂量</text>
+        <text class="form-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-item form-item-notes">
+      <text class="form-label">备注（可选）</text>
+      <textarea class="notes-input" placeholder="添加备注说明..." maxlength="100" value="{{feedingData.notes}}" bindinput="onNotesInput" />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-btn" bind:tap="onSubmit">
+      <text class="submit-text">确认提交</text>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 猫咪选择器 -->
+<van-action-sheet 
+  show="{{showCatPicker}}" 
+  actions="{{catPickerActions}}" 
+  bind:close="onCloseCatPicker" 
+  bind:select="onSelectCatPicker" 
+  title="选择猫咪"
+  cancel-text="取消"
+/>
+
+<!-- 食物类型选择器 -->
+<van-action-sheet 
+  show="{{showFoodTypePicker}}" 
+  actions="{{foodTypeActions}}" 
+  bind:close="onCloseFoodTypePicker" 
+  bind:select="onSelectFoodTypePicker" 
+  title="选择食物类型"
+  safe-area-inset-bottom="{{true}}"
+/>
+
+<!-- 投喂量选择器 -->
+<van-action-sheet 
+  show="{{showAmountPicker}}" 
+  actions="{{amountActions}}" 
+  bind:close="onCloseAmountPicker" 
+  bind:select="onSelectAmountPicker" 
+  title="选择投喂量"
+  safe-area-inset-bottom="{{true}}"
+/>

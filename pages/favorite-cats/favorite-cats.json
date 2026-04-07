@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-button": "@vant/weapp/button"
+  },
+  "navigationBarTitleText": "关注猫咪",
+  "enablePullDownRefresh": true
+}

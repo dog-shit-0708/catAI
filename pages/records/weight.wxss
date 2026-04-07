@@ -1,0 +1,252 @@
+/* pages/records/weight.wxss */
+.page_container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF7F0 0%, #F8F9FA 40%);
+  padding: 24rpx;
+}
+
+/* 统计概览 */
+.stats-overview {
+  margin-bottom: 24rpx;
+}
+
+.stats-card {
+  display: flex;
+  background: white;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.04);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FF8C42;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 通用section样式 */
+.chart-section,
+.cats-summary-section,
+.records-section {
+  margin-bottom: 24rpx;
+  background: white;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.04);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.view-all {
+  font-size: 26rpx;
+  color: #FF8C42;
+}
+
+/* 图表区域 */
+.chart-container {
+  margin-top: 16rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.period-selector {
+  transform: scale(0.8);
+  transform-origin: right center;
+}
+
+/* 猫咪投喂总结 */
+.cats-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.cat-summary-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #FAFAFA;
+  border-radius: 16rpx;
+}
+
+.cat-summary-item .cat-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 3rpx solid #FFF0E5;
+}
+
+.cat-summary-item .cat-info {
+  flex: 1;
+}
+
+.cat-summary-item .cat-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+}
+
+.cat-summary-item .cat-location {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.feed-info {
+  text-align: right;
+  min-width: 120rpx;
+}
+
+.feed-count {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FF8C42;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.feed-bar {
+  width: 100rpx;
+  height: 8rpx;
+  background: #F0F0F0;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.feed-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF8C42 0%, #FFA86C 100%);
+  border-radius: 4rpx;
+}
+
+/* 记录列表 */
+.add-record {
+  font-size: 28rpx;
+  color: #FF8C42;
+  font-weight: 500;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.record-item {
+  padding: 24rpx;
+  background: #FAFAFA;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #FF8C42;
+}
+
+.record-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.record-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-row .cat-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.food-type {
+  font-size: 22rpx;
+  color: #FF8C42;
+  background: #FFF0E5;
+  padding: 4rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.amount {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.record-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 查看更多 */
+.view-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx 0;
+  margin-top: 12rpx;
+  border-top: 1rpx solid #F0F0F0;
+}
+
+.view-more-text {
+  font-size: 26rpx;
+  color: #FF8C42;
+  margin-right: 8rpx;
+}
+
+.view-more-arrow {
+  font-size: 28rpx;
+  color: #FF8C42;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 375px) {
+  .stats-card {
+    padding: 24rpx;
+  }
+
+  .stat-number {
+    font-size: 34rpx;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12rpx;
+  }
+
+  .period-selector {
+    transform: scale(0.7);
+    transform-origin: left center;
+  }
+
+  .record-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8rpx;
+  }
+}

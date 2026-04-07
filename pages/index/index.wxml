@@ -1,0 +1,88 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 20}}px">
+  <!-- 打卡卡片 -->
+  <view class="checkin-section">
+    <view class="checkin-card" bind:tap="onCheckinTap">
+      <view class="checkin-left">
+        <view class="checkin-badge">
+          <text class="badge-text">📝</text>
+        </view>
+        <view class="checkin-text">
+          <text class="checkin-title">立即投喂打卡</text>
+          <text class="checkin-desc">记录今日投喂，获得爱心积分</text>
+        </view>
+      </view>
+      <view class="checkin-right">
+        <view class="points-display">
+          <text class="points-label">当前积分</text>
+          <text class="points-value">{{userPoints}}</text>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日猫咪投喂排行 -->
+  <view class="ranking-section">
+    <view class="section-header">
+      <text class="section-title">今日猫咪投喂排行</text>
+      <view class="section-more" bind:tap="onMoreRanking">
+        <text>查看全部</text>
+        <text class="arrow-right">›</text>
+      </view>
+    </view>
+    <view class="ranking-list">
+      <view wx:for="{{catsFeedingRanking}}" wx:key="id" class="ranking-item" wx:if="{{index < 5}}" bind:tap="onCatTap" data-id="{{item.id}}">
+        <view class="rank-badge rank-{{index + 1}}">
+          <text>{{index + 1}}</text>
+        </view>
+        <image class="cat-avatar" src="{{item.profile_image || '/assets/default-cat.png'}}" mode="aspectFill" />
+        <view class="cat-info">
+          <text class="cat-name">{{item.name}}</text>
+        </view>
+        <view class="feed-stats">
+          <text class="feed-count">{{item.feed_count}}</text>
+          <text class="feed-label">次</text>
+        </view>
+      </view>
+      <view wx:if="{{catsFeedingRanking.length === 0}}" class="empty-ranking">
+        <text>今日暂无投喂记录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI智能建议 -->
+  <view class="ai-section">
+    <view class="section-header">
+      <text class="section-title">AI 智能建议</text>
+      <text class="section-refresh" bind:tap="onRefreshSuggestions">刷新</text>
+    </view>
+    <view class="ai-list">
+      <view wx:for="{{aiSuggestions}}" wx:key="id" class="ai-card {{item.type}}">
+        <view class="ai-card-header">
+          <view class="ai-icon">
+            <text class="icon-text">{{item.icon === 'clock' ? '⏰' : item.icon === 'health' ? '💊' : '🌿'}}</text>
+          </view>
+          <text class="ai-title">{{item.title}}</text>
+        </view>
+        <text class="ai-desc">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 投喂打卡组件 -->
+  <feeding-checkin 
+    visible="{{showCheckinDialog}}" 
+    cats="{{cats}}"
+    bind:close="onCloseCheckinDialog"
+    bind:success="onCheckinSuccess"
+    bind:error="onCheckinError"
+  />
+
+  <!-- 悬浮拍照按钮 -->
+  <view class="floating-camera-wrapper" bind:tap="onCameraTap">
+    <view class="floating-camera-btn">
+      <image src="/assets/11 (2804).png" mode="aspectFit" class="floating-camera-icon" />
+    </view>
+    <text class="floating-camera-text">AI识猫</text>
+  </view>
+</view>

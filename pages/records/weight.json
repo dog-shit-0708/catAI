@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "feeding-checkin": "/components/feeding-checkin/feeding-checkin",
+    "van-empty": "@vant/weapp/empty/index"
+  }
+}

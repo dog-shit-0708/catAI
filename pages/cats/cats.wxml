@@ -1,0 +1,46 @@
+<page-layout showHeader="{{true}}" title="校园猫咪" subtitle="共 {{cats.length}} 只小可爱">
+  <!-- 加载中 -->
+  <view wx:if="{{isLoading}}" class="loading-state">
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 错误/空状态 -->
+  <view wx:elif="{{cats.length === 0}}" class="empty-state">
+    <text class="empty-text">暂无猫咪数据</text>
+    <text class="empty-subtext">请检查网络连接或下拉刷新</text>
+  </view>
+  
+  <!-- 猫咪列表 -->
+  <view wx:else class="cats-list">
+    <view wx:for="{{cats}}" wx:key="id" class="cat-card" bind:tap="onCatTap" data-id="{{item.id}}">
+      <!-- 猫咪图片 -->
+      <view class="cat-image-wrapper">
+        <image class="cat-image" src="{{item.profile_image}}" mode="aspectFill" />
+        <view class="cat-status {{item.health === '健康' ? 'healthy' : 'warning'}}">
+          <text>{{item.health}}</text>
+        </view>
+      </view>
+      
+      <!-- 猫咪信息 -->
+      <view class="cat-info">
+        <view class="cat-name-row">
+          <text class="cat-name">{{item.name}}</text>
+          <text wx:if="{{item.alias}}" class="cat-alias">({{item.alias}})</text>
+        </view>
+        
+        <view class="cat-tags">
+          <text wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag" class="tag">{{tag}}</text>
+        </view>
+        
+        <text class="cat-notes">{{item.notes}}</text>
+        
+        <view class="cat-meta">
+          <view class="meta-item">
+            <text class="meta-icon">🍽️</text>
+            <text class="meta-text">投喂 {{item.feed_count}} 次</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</page-layout>

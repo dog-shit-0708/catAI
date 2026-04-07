@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "page-layout": "/components/page-layout/page-layout",
+    "van-empty": "@vant/weapp/empty/index"
+  },
+  "navigationBarTitleText": "投喂记录"
+}

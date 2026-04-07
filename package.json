@@ -1,0 +1,10 @@
+{
+  "description": "",
+  "dependencies": {
+    "@vant/weapp": "^1.11.7",
+    "echarts": "^6.0.0",
+    "miniprogram-api-promise": "^1.0.4",
+    "mobx-miniprogram": "^4.13.2",
+    "mobx-miniprogram-bindings": "^1.2.1"
+  }
+}

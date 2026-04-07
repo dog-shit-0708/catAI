@@ -1,0 +1,12 @@
+<view class="page-layout" style="padding-bottom: {{tabBarHeight}}px">
+  <!-- 页面头部（可选） -->
+  <view wx:if="{{showHeader}}" class="page-header">
+    <text class="page-title">{{title}}</text>
+    <text wx:if="{{subtitle}}" class="page-subtitle">{{subtitle}}</text>
+  </view>
+  
+  <!-- 页面内容插槽 -->
+  <view class="page-content {{showHeader ? 'with-header' : ''}}">
+    <slot></slot>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 20}}px">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">关注猫咪</text>
+    <text class="page-subtitle">共 {{favoriteCats.length}} 只</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{isLoading}}" class="loading-state">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{favoriteCats.length === 0}}" class="empty-state">
+    <text class="empty-icon">🐱</text>
+    <text class="empty-text">还没有关注任何猫咪</text>
+    <text class="empty-subtext">去猫咪列表看看吧</text>
+    <van-button type="primary" bind:tap="onViewAllCats">去看看</van-button>
+  </view>
+
+  <!-- 关注列表 -->
+  <view wx:else class="cats-list">
+    <view wx:for="{{favoriteCats}}" wx:key="id" class="cat-card">
+      <view class="cat-info" bind:tap="onCatTap" data-id="{{item.id}}">
+        <image class="cat-avatar" src="{{item.profile_image}}" mode="aspectFill" />
+        <view class="cat-detail">
+          <text class="cat-name">{{item.name}}</text>
+          <text wx:if="{{item.alias}}" class="cat-alias">{{item.alias}}</text>
+        </view>
+      </view>
+      <view class="cat-actions">
+        <van-button type="default" size="small" plain bind:tap="onUnfavorite" data-id="{{item.id}}">
+          取消关注
+        </van-button>
+      </view>
+    </view>
+  </view>
+</view>

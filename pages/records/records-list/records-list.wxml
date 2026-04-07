@@ -1,0 +1,22 @@
+<page-layout showHeader="{{true}}" title="投喂记录" subtitle="共 {{recentRecords.length}} 条记录">
+  <view class="records-list">
+    <view wx:for="{{recentRecords}}" wx:key="id" class="record-item">
+      <view class="record-time">
+        <text class="time-date">{{item.feeding_time}}</text>
+      </view>
+      <view class="record-content">
+        <view class="record-header">
+          <text class="cat-name">{{item.cat_name}}</text>
+          <text class="food-type">{{item.food_type}}</text>
+        </view>
+        <view class="record-details">
+          <text class="amount">{{item.amount}}</text>
+        </view>
+      </view>
+      <view class="record-image" wx:if="{{item.image_url}}">
+        <image src="{{item.image_url}}" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+  <van-empty wx:if="{{!recentRecords.length}}" description="暂无投喂记录" />
+</page-layout>

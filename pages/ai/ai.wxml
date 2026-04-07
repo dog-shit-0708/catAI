@@ -1,0 +1,89 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 10}}px">
+  <!-- AI 聊天头部 -->
+  <view class="chat-header">
+    <view class="ai-avatar">
+      <image src="/assets/ai-avatar-new.jpg" mode="aspectFit" />
+    </view>
+    <view class="ai-info">
+      <text class="ai-name">猫咪守护助手</text>
+      <text class="ai-status">在线 · 随时为您服务</text>
+    </view>
+  </view>
+
+  <!-- 聊天消息列表 -->
+  <scroll-view class="chat-messages" scroll-y scroll-into-view="{{lastMessageId}}">
+    <view wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <!-- AI 消息 -->
+      <view wx:if="{{item.type === 'ai'}}" class="message-item ai-message">
+        <image class="message-avatar" src="/assets/ai-avatar-new.jpg" mode="aspectFit" />
+        <view class="message-content">
+          <view class="message-bubble ai-bubble">
+            <text class="message-text">{{item.content}}</text>
+          </view>
+          <!-- RAG 来源标注 -->
+          <view wx:if="{{item.isRAG && item.sources.length > 0}}" class="rag-sources">
+            <text class="rag-label">参考知识：</text>
+            <view class="rag-tags">
+              <text wx:for="{{item.sources}}" wx:for-item="source" wx:key="id" class="rag-tag">{{source.title}}</text>
+            </view>
+          </view>
+          <text class="message-time">{{item.time}}</text>
+        </view>
+      </view>
+
+      <!-- 用户消息 -->
+      <view wx:else class="message-item user-message">
+        <view class="message-content">
+          <view class="message-bubble user-bubble">
+            <!-- 图片消息 -->
+            <block wx:if="{{item.isImage}}">
+              <image class="message-image" src="{{item.imageUrl}}" mode="aspectFit" bind:tap="onPreviewImage" data-url="{{item.imageUrl}}" />
+            </block>
+            <block wx:else>
+              <text class="message-text">{{item.content}}</text>
+            </block>
+          </view>
+          <text class="message-time">{{item.time}}</text>
+        </view>
+        <image class="message-avatar" src="{{userInfo.avatar}}" mode="aspectFit" wx:if="{{userInfo.avatar}}" />
+        <image class="message-avatar" src="/assets/11 (360).png" mode="aspectFit" wx:else />
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 快捷问题按钮 -->
+  <view class="quick-questions">
+    <scroll-view scroll-x class="questions-scroll">
+      <view wx:for="{{quickQuestions}}" wx:key="id" class="question-btn" bind:tap="onQuickQuestion" data-question="{{item.question}}">
+        <text>{{item.title}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="chat-input-area">
+    <view class="input-container">
+      <view class="camera-btn" bind:tap="onCameraTap">
+        <image src="/assets/11 (2804).png" mode="aspectFit" class="camera-icon" />
+      </view>
+      <van-field
+        class="message-input"
+        placeholder="输入您的问题..."
+        value="{{inputMessage}}"
+        bind:input="onInputChange"
+        bind:confirm="onSendMessage"
+        confirm-type="send"
+        border="false"
+      />
+      <van-button
+        class="send-btn"
+        type="primary"
+        size="small"
+        bind:tap="onSendMessage"
+        disabled="{{!canSubmit}}"
+      >
+        发送
+      </van-button>
+    </view>
+  </view>
+</view>

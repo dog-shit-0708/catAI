@@ -1,0 +1,36 @@
+/* ========== 页面布局基础样式 ========== */
+.page-layout {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF7F0 0%, #F8F9FA 40%);
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* ========== 页面头部 ========== */
+.page-header {
+  margin-bottom: 32rpx;
+  padding: 16rpx 8rpx;
+}
+
+.page-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.page-subtitle {
+  font-size: 26rpx;
+  color: #FF8C42;
+  font-weight: 500;
+}
+
+/* ========== 页面内容 ========== */
+.page-content {
+  width: 100%;
+}
+
+.page-content.with-header {
+  /* 有头部时的额外样式 */
+}

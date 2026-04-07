@@ -1,0 +1,6 @@
+.ec-canvas{
+  width: 100%;
+  height: 300px; /* 固定高度 */
+  position: relative;
+}
+

@@ -1,0 +1,80 @@
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  border-left: 6rpx solid #FF8C42;
+}
+
+.record-time {
+  width: 120rpx;
+  margin-right: 20rpx;
+}
+
+.time-date {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+}
+
+.record-content {
+  flex: 1;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.record-header .cat-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.food-type {
+  font-size: 22rpx;
+  color: #FF8C42;
+  background: #FFF0E5;
+  padding: 4rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.record-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amount {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.location {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.record-image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-left: 20rpx;
+}
+
+.record-image image {
+  width: 100%;
+  height: 100%;
+}

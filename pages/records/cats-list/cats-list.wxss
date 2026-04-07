@@ -1,0 +1,73 @@
+.cats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.cat-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.cat-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 3rpx solid #FFF0E5;
+}
+
+.cat-info {
+  flex: 1;
+}
+
+.cat-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+}
+
+.cat-location {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.feed-info {
+  text-align: right;
+  min-width: 140rpx;
+}
+
+.feed-count {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FF8C42;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.feed-bar {
+  width: 120rpx;
+  height: 8rpx;
+  background: #F0F0F0;
+  border-radius: 4rpx;
+  overflow: hidden;
+  margin-bottom: 4rpx;
+}
+
+.feed-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF8C42 0%, #FFA86C 100%);
+  border-radius: 4rpx;
+}
+
+.feed-percent {
+  font-size: 22rpx;
+  color: #999;
+}

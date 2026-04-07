@@ -1,0 +1,79 @@
+<view class="page_container" style="padding-bottom: {{tabBarHeight + 10}}px">
+  <!-- 统计概览 -->
+  <view class="stats-overview">
+    <view class="stats-card">
+      <view class="stat-item">
+        <text class="stat-number">{{totalFeedingCount}}</text>
+        <text class="stat-label">总投喂次数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{totalCatsCount}}</text>
+        <text class="stat-label">照顾猫咪</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{thisMonthCount}}</text>
+        <text class="stat-label">本月投喂</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 投喂对象总结 -->
+  <view class="cats-summary-section">
+    <view class="section-header">
+      <text class="section-title">投喂对象</text>
+      <text class="view-all" bind:tap="onViewAllCats" wx:if="{{catsFeedingSummary.length > 3}}">查看全部</text>
+    </view>
+    <view class="cats-summary-list">
+      <view wx:for="{{displayCatsSummary}}" wx:key="id" class="cat-summary-item">
+        <image class="cat-avatar" src="{{item.profile_image}}" mode="aspectFill" />
+        <view class="cat-info">
+          <text class="cat-name">{{item.name}}</text>
+        </view>
+        <view class="feed-info">
+          <text class="feed-count">{{item.feed_count}}次</text>
+          <view class="feed-bar">
+            <view class="feed-bar-fill" style="width: {{item.percentage}}%"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 投喂记录列表 -->
+  <view class="records-section">
+    <view class="section-header">
+      <text class="section-title">最近投喂记录</text>
+      <text class="add-record" bind:tap="onAddRecord">+ 添加</text>
+    </view>
+    <view class="records-list">
+      <view wx:for="{{displayRecords}}" wx:key="id" class="record-item" bind:tap="onRecordTap" data-id="{{item.id}}">
+        <view class="record-main">
+          <view class="record-row">
+            <text class="cat-name">{{item.cat_name}}</text>
+            <text class="food-type">{{item.food_type}}</text>
+          </view>
+          <view class="record-row">
+            <text class="amount">{{item.amount}}</text>
+            <text class="record-time">{{item.feeding_time}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 查看更多 -->
+    <view wx:if="{{recentRecords.length > 5}}" class="view-more" bind:tap="onViewAllRecords">
+      <text class="view-more-text">查看全部 {{recentRecords.length}} 条记录</text>
+      <text class="view-more-arrow">›</text>
+    </view>
+    <van-empty wx:if="{{!recentRecords.length}}" description="暂无投喂记录" />
+
+  <!-- 投喂打卡组件 -->
+  <feeding-checkin 
+    visible="{{showCheckinDialog}}" 
+    cats="{{cats}}"
+    bind:close="onCloseCheckinDialog"
+    bind:success="onCheckinSuccess"
+    bind:error="onCheckinError"
+  />
+</view>
+
+</view>

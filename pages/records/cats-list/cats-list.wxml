@@ -1,0 +1,18 @@
+<page-layout showHeader="{{true}}" title="投喂对象" subtitle="共照顾 {{catsFeedingSummary.length}} 只猫咪">
+  <view class="cats-list">
+    <view wx:for="{{catsFeedingSummary}}" wx:key="id" class="cat-item">
+      <image class="cat-avatar" src="{{item.profile_image}}" mode="aspectFill" />
+      <view class="cat-info">
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+      <view class="feed-info">
+        <text class="feed-count">{{item.feed_count}}次</text>
+        <view class="feed-bar">
+          <view class="feed-bar-fill" style="width: {{item.percentage}}%"></view>
+        </view>
+        <text class="feed-percent">{{item.percentage}}%</text>
+      </view>
+    </view>
+  </view>
+  <van-empty wx:if="{{!catsFeedingSummary.length}}" description="暂无投喂记录" />
+</page-layout>
