@@ -52,7 +52,7 @@ database:
     port: 3306
     database: cat_ai
     username: root
-    password: password
+    password: cat_ai
     pool_size: 20
     max_overflow: 30
 

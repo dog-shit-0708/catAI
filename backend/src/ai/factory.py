@@ -1,6 +1,7 @@
 from typing import Dict, Any
 from .base import BaseTextAI, BaseVisionAI
 from .text_ai import OpenAITextAI, MockTextAI
+from .glm4_ai import GLM4TextAI
 from .vision_ai import CLIPVisionAI, MockVisionAI
 from ..core.logger import logger
 from ..core.exceptions import AIError
@@ -23,6 +24,8 @@ class AIFactory:
         try:
             if model_type == 'openai':
                 instance = OpenAITextAI(config)
+            elif model_type == 'glm4':
+                instance = GLM4TextAI(config)
             elif model_type == 'mock':
                 instance = MockTextAI(config)
             else:
@@ -72,7 +75,7 @@ class AIFactory:
     @classmethod
     def get_available_text_models(cls) -> list:
         """获取可用的文本模型列表"""
-        return ['mock', 'openai']  # 可扩展
+        return ['mock', 'openai', 'glm4']  # 可扩展
 
     @classmethod
     def get_available_vision_models(cls) -> list:

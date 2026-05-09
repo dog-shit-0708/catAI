@@ -60,6 +60,33 @@ class AIService:
                 "timestamp": self._get_timestamp()
             }
 
+    async def stream_chat_with_ai(self, message: str, user_id: str, context: Optional[Dict] = None):
+        """AI流式对话服务"""
+        try:
+            # 输入验证
+            if not message or not message.strip():
+                raise AIError("消息内容不能为空", "validation")
+
+            # 检查AI模型是否支持流式响应
+            if hasattr(self.text_ai, 'stream_chat'):
+                # 使用流式响应
+                full_response = ""
+                async for chunk in self.text_ai.stream_chat(message.strip(), context):
+                    full_response += chunk
+                    yield chunk
+
+                # 记录完整的对话历史
+                await self._save_chat_history(user_id, message, full_response)
+            else:
+                # 回退到普通对话
+                response = self.text_ai.chat(message.strip(), context)
+                await self._save_chat_history(user_id, message, response)
+                yield response
+
+        except Exception as e:
+            logger.error(f"AI流式对话失败 [用户: {user_id}]: {e}")
+            yield f"AI服务暂时不可用，请稍后重试: {str(e)}"
+
     async def recognize_cat(self, image_path: Optional[str] = None,
                            image_bytes: Optional[bytes] = None,
                            cat_vectors: Dict[str, List[float]] = None) -> Dict[str, Any]:

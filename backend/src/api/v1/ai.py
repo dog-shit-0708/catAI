@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from typing import Optional, Dict, Any
 import aiofiles
 import os
@@ -195,6 +195,71 @@ async def ai_health_check(ai_service: AIService = Depends(get_ai_service)):
             },
             status_code=500
         )
+
+@router.post("/stream-chat")
+async def stream_chat_with_ai(
+    message: str = Form(...),
+    user_id: str = Form(...),
+    enable_web_search: bool = Form(False),
+    ai_service: AIService = Depends(get_ai_service)
+):
+    """AI流式对话接口"""
+    try:
+        # 输入验证
+        if not message or not message.strip():
+            raise HTTPException(status_code=400, detail="消息内容不能为空")
+
+        async def generate_response():
+            try:
+                context = {"enable_web_search": enable_web_search}
+
+                # 检查是否支持流式响应
+                if hasattr(ai_service.text_ai, 'stream_chat'):
+                    yield "data: {\"type\": \"start\", \"timestamp\": \"" + datetime.now().isoformat() + "\"}\n\n"
+
+                    # 注意：GLM4的stream_chat不是async generator，需要适配
+                    try:
+                        stream_gen = ai_service.text_ai.stream_chat(message.strip(), context)
+                        for chunk in stream_gen:  # 不是async for
+                            if chunk:
+                                # 转义JSON字符串中的特殊字符
+                                escaped_chunk = chunk.replace('"', '\\"').replace('\\', '\\\\').replace('\n', '\\n')
+                                yield f"data: {{\"type\": \"chunk\", \"content\": \"{escaped_chunk}\", \"timestamp\": \"{datetime.now().isoformat()}\"}}\n\n"
+
+                        yield "data: {\"type\": \"end\", \"timestamp\": \"" + datetime.now().isoformat() + "\"}\n\n"
+                    except Exception as stream_error:
+                        logger.error(f"GLM4流式响应错误: {stream_error}")
+                        # 回退到普通响应
+                        try:
+                            result = ai_service.text_ai.chat(message.strip(), context)
+                            escaped_response = result.replace('"', '\\"').replace('\\', '\\\\').replace('\n', '\\n')
+                            yield f"data: {{\"type\": \"complete\", \"response\": \"{escaped_response}\", \"timestamp\": \"{datetime.now().isoformat()}\"}}\n\n"
+                        except Exception as fallback_error:
+                            logger.error(f"GLM4回退响应错误: {fallback_error}")
+                            yield f"data: {{\"type\": \"error\", \"error\": \"服务暂时不可用\", \"timestamp\": \"{datetime.now().isoformat()}\"}}\n\n"
+                else:
+                    # 如果不支持流式，使用普通对话
+                    result = await ai_service.chat_with_ai(message, user_id, context)
+                    escaped_response = result.get('response', '').replace('"', '\\"').replace('\\', '\\\\').replace('\n', '\\n')
+                    yield f"data: {{\"type\": \"complete\", \"response\": \"{escaped_response}\", \"timestamp\": \"{datetime.now().isoformat()}\"}}\n\n"
+
+            except Exception as e:
+                logger.error(f"流式对话生成异常: {e}")
+                yield f"data: {{\"type\": \"error\", \"error\": \"生成响应时发生错误\", \"timestamp\": \"{datetime.now().isoformat()}\"}}\n\n"
+
+        return StreamingResponse(
+            generate_response(),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no"
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"AI流式对话接口异常: {e}")
+        raise HTTPException(status_code=500, detail="AI流式服务内部错误")
 
 @router.post("/switch-model/{service_type}")
 async def switch_ai_model(

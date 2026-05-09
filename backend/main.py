@@ -1,11 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import uvicorn
 import os
 
 from src.api.v1.ai import router as ai_router
+from src.api.v1.chat import router as chat_router
 from src.core.config import settings
 from src.core.logger import logger
 from src.core.exceptions import BaseException, handle_exception
@@ -39,10 +41,18 @@ app = FastAPI(
 # 配置CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 生产环境应该设置为具体的域名
+    allow_origins=[
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "*"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600,
 )
 
 # 注册异常处理器
@@ -86,8 +96,13 @@ async def root():
         "redoc": "/redoc"
     }
 
-# 注册API路由
-app.include_router(ai_router, prefix="/api/v1")
+# 注册API路由 - 注意顺序：静态路由在前，动态路由在后
+app.include_router(chat_router, prefix="/api/v1")  # 先注册chat路由（包含/cats/identify/images）
+app.include_router(ai_router, prefix="/api/v1")   # 再注册ai路由
+
+# 挂载静态文件目录（上传的图片）
+if os.path.exists("uploads"):
+    app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # 添加更多API路由的占位符
 @app.get("/api/v1/cats")

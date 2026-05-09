@@ -8,7 +8,8 @@ class MockTextAI(BaseTextAI):
     """模拟文本AI - 用于开发和测试"""
 
     def __init__(self, config: Dict[str, Any]):
-        super().__init__(config)
+        self.config = config
+        self.initialized = False
 
     def initialize(self, config: Dict[str, Any]) -> None:
         """初始化模拟AI"""
@@ -54,85 +55,3 @@ class MockTextAI(BaseTextAI):
         return self.initialized
 
 class OpenAITextAI(BaseTextAI):
-    """OpenAI文本AI实现"""
-
-    def __init__(self, config: Dict[str, Any]):
-        super().__init__(config)
-        self.api_key = config.get('api_key', '')
-        self.model = config.get('model', 'gpt-3.5-turbo')
-        self.temperature = config.get('temperature', 0.7)
-
-    def initialize(self, config: Dict[str, Any]) -> None:
-        """初始化OpenAI"""
-        try:
-            import openai
-            openai.api_key = self.api_key
-            self.openai = openai
-            self.initialized = True
-            logger.info("OpenAI文本AI初始化完成")
-        except ImportError:
-            raise AIError("OpenAI库未安装，请先安装: pip install openai", "text_ai")
-        except Exception as e:
-            raise AIError(f"OpenAI初始化失败: {str(e)}", "text_ai")
-
-    def chat(self, message: str, context: Optional[Dict] = None) -> str:
-        """OpenAI对话"""
-        if not self.initialized:
-            raise AIError("模型未初始化", "text_ai")
-
-        try:
-            # 构建系统提示词
-            system_prompt = """你是校园流浪猫百科AI助手，专门帮助学生了解校园猫咪信息、养猫知识和科学投喂建议。
-
-            你的能力包括：
-            1. 回答关于校园猫咪的基本信息
-            2. 提供科学的养猫和投喂知识
-            3. 给出合理的投喂建议
-
-            请用友好、专业的语气回答问题。如果不知道确切答案，请诚实地说明并提供一般性建议。"""
-
-            messages = [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": message}
-            ]
-
-            response = self.openai.ChatCompletion.create(
-                model=self.model,
-                messages=messages,
-                temperature=self.temperature,
-                max_tokens=500
-            )
-
-            return response.choices[0].message.content.strip()
-
-        except Exception as e:
-            logger.error(f"OpenAI对话失败: {e}")
-            raise AIError(f"AI对话服务暂时不可用: {str(e)}", "text_ai")
-
-    def generate_embedding(self, text: str) -> List[float]:
-        """生成OpenAI向量"""
-        if not self.initialized:
-            raise AIError("模型未初始化", "text_ai")
-
-        try:
-            response = self.openai.Embedding.create(
-                input=text,
-                model="text-embedding-ada-002"
-            )
-            return response.data[0].embedding
-        except Exception as e:
-            logger.error(f"OpenAI向量生成失败: {e}")
-            raise AIError(f"向量生成失败: {str(e)}", "text_ai")
-
-    def health_check(self) -> bool:
-        """健康检查"""
-        if not self.initialized:
-            return False
-
-        try:
-            # 简单的健康检查
-            self.openai.models.list()
-            return True
-        except Exception as e:
-            logger.warning(f"OpenAI健康检查失败: {e}")
-            return False
