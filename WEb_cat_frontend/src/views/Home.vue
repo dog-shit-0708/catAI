@@ -25,7 +25,7 @@
         
         <div class="hero-image">
           <div class="image-container">
-            <img src="/catAI/assets/images/cat_05.jpg" alt="Orange Soda 猫咪">
+            <img src="./assets/images/cat_05.jpg" alt="Orange Soda 猫咪">
             <div class="image-tag">#001 ORANGE_SODA</div>
           </div>
         </div>
@@ -109,7 +109,7 @@
           
           <div class="resident-card resident-card-offset">
             <div class="resident-image">
-              <img src="/catAI/assets/images/cat_01.jpg" alt="Shadow">
+              <img src="./assets/images/cat_01.jpg" alt="Shadow">
             </div>
             <div class="resident-info">
               <h3 class="resident-name">SHADOW <span>/ 002</span></h3>
