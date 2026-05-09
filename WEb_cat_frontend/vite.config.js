@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/catAI/',  // GitHub Pages 仓库路径
+  base: './',  // 使用相对路径
   server: {
     port: 8080,
     proxy: {
