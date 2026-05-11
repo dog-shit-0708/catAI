@@ -4,13 +4,14 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-          <div class="tag">DISCOVER YOUR AI FELINE</div>
+          <div class="tag">WUST CAMPUS CATS</div>
           <h1 class="hero-title">
-            遇见你的<br>
-            <span class="highlight">手绘</span>伙伴
+            武汉科技大学<br>
+            <span class="highlight">校园流浪猫</span><br>
+            信息管理平台
           </h1>
           <p class="hero-subtitle">
-            这是一个武汉科技大学校园流浪猫信息管理平台，支持AI对话、猫咪图片识别、档案浏览与喂养打卡。
+            在这里可以查询猫咪的具体信息，添加投喂记录，收藏你感兴趣的猫咪，与猫咪AI助手对话，进行AI识猫、了解领养、喂养、常见知识误区的对话。
           </p>
           <div class="hero-buttons">
             <router-link to="/chat" class="btn-primary">
