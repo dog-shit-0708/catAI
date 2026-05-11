@@ -44,7 +44,7 @@
       <!-- Main Chat -->
       <div class="chat-main">
         <div class="chat-header">
-          <img src="../../assets/images/cat_07.jpg" alt="Orange Soda" class="chat-header-avatar">
+          <img src="/catAI/assets/images/cat_07.jpg" alt="Orange Soda" class="chat-header-avatar">
           <div class="chat-header-info">
             <h3>ORANGE_SODA</h3>
             <p>活泼好动的橘子汽水</p>
@@ -61,7 +61,7 @@
               :class="msg.role"
             >
               <div v-if="msg.role === 'user'" class="message-avatar user">我</div>
-              <img v-else src="../../assets/images/cat_07.jpg" alt="Cat" class="message-avatar">
+              <img v-else src="/catAI/assets/images/cat_07.jpg" alt="Cat" class="message-avatar">
               <div class="message-content">
                 <p v-if="msg.streaming" class="streaming-text">{{ msg.content }}<span class="cursor">|</span></p>
                 <p v-else>{{ msg.content }}</p>

@@ -119,7 +119,7 @@ const images = computed(() => {
   if (cat.value.profile_image) {
     return [cat.value.profile_image]
   }
-  return ['/assets/images/cat_07.jpg']
+  return ['/catAI/assets/images/cat_07.jpg']
 })
 
 // 领养状态样式

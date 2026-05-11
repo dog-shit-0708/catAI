@@ -25,7 +25,7 @@
         
         <div class="hero-image">
           <div class="image-container">
-            <img src="../../assets/images/cat_05.jpg" alt="Orange Soda 猫咪">
+            <img src="/catAI/assets/images/cat_05.jpg" alt="Orange Soda 猫咪">
             <div class="image-tag">#001 ORANGE_SODA</div>
           </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="residents-grid">
           <div class="resident-card">
             <div class="resident-image">
-              <img src="/assets/images/cat_05.jpg" alt="Orange Soda">
+              <img src="/catAI/assets/images/cat_05.jpg" alt="Orange Soda">
             </div>
             <div class="resident-info">
               <h3 class="resident-name">ORANGE_SODA <span>/ 001</span></h3>
@@ -109,7 +109,7 @@
           
           <div class="resident-card resident-card-offset">
             <div class="resident-image">
-              <img src="../../assets/images/cat_01.jpg" alt="Shadow">
+              <img src="/catAI/assets/images/cat_01.jpg" alt="Shadow">
             </div>
             <div class="resident-info">
               <h3 class="resident-name">SHADOW <span>/ 002</span></h3>
@@ -120,7 +120,7 @@
           
           <div class="resident-card">
             <div class="resident-image">
-              <img src="../../assets/images/cat_02.jpg" alt="Mochi">
+              <img src="/catAI/assets/images/cat_02.jpg" alt="Mochi">
             </div>
             <div class="resident-info">
               <h3 class="resident-name">MOCHI <span>/ 003</span></h3>
