@@ -1,9 +1,5 @@
 <template>
   <div class="about">
-    <div class="about-hero">
-      <h1 class="section-title">关于<span class="highlight">我们</span></h1>
-    </div>
-
     <!-- Mission Section -->
     <section class="mission-section">
       <div class="container">
