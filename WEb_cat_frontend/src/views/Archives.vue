@@ -17,7 +17,14 @@
     <div v-else-if="cats.length > 0" class="archives-grid">
       <router-link v-for="cat in cats" :key="cat.id" :to="`/cat/${cat.id}`" class="cat-card">
         <div class="cat-card-image">
-          <img :src="resolveCatImageUrl(cat.profile_image)" :alt="cat.name">
+          <img 
+            :src="resolveCatImageUrl(cat.profile_image)" 
+            :alt="cat.name"
+            loading="lazy"
+            @load="$event.target.classList.add('loaded')"
+            class="lazy-image"
+          >
+          <div class="image-skeleton"></div>
           <div v-if="cat.adoption_status === 1" class="status-badge adopted">已领养</div>
           <div v-else-if="cat.adoption_status === 2" class="status-badge pending">领养中</div>
           <div v-else class="status-badge available">待领养</div>
@@ -181,6 +188,8 @@ onMounted(() => {
   position: relative;
   padding: 1.5rem;
   border-bottom: 3px solid var(--color-black);
+  background: #f0f0f0;
+  overflow: hidden;
 }
 
 .cat-card-image img {
@@ -188,6 +197,35 @@ onMounted(() => {
   height: 250px;
   object-fit: cover;
   display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cat-card-image img.loaded {
+  opacity: 1;
+}
+
+.image-skeleton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  z-index: 0;
+}
+
+.cat-card-image img.loaded + .image-skeleton {
+  display: none;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .status-badge {
