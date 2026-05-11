@@ -105,6 +105,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import catsApi from '../api/cats.js'
+import { defaultCatImage, resolveCatImageUrl } from '../utils/catImages.js'
 
 const route = useRoute()
 const cat = ref({})
@@ -114,12 +115,12 @@ const error = ref('')
 // 图片列表（使用cover_images或profile_image）
 const images = computed(() => {
   if (cat.value.cover_images && cat.value.cover_images.length > 0) {
-    return cat.value.cover_images
+    return cat.value.cover_images.map(resolveCatImageUrl)
   }
   if (cat.value.profile_image) {
-    return [cat.value.profile_image]
+    return [resolveCatImageUrl(cat.value.profile_image)]
   }
-  return ['/catAI/assets/images/cat_07.jpg']
+  return [defaultCatImage]
 })
 
 // 领养状态样式

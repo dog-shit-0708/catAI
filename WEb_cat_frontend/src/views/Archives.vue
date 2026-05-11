@@ -17,7 +17,7 @@
     <div v-else-if="cats.length > 0" class="archives-grid">
       <router-link v-for="cat in cats" :key="cat.id" :to="`/cat/${cat.id}`" class="cat-card">
         <div class="cat-card-image">
-          <img :src="cat.profile_image ? (cat.profile_image.startsWith('http') ? cat.profile_image : '/catAI/assets/images/' + cat.profile_image) : '/catAI/assets/images/cat_01.jpg'" :alt="cat.name">
+          <img :src="resolveCatImageUrl(cat.profile_image)" :alt="cat.name">
           <div v-if="cat.adoption_status === 1" class="status-badge adopted">已领养</div>
           <div v-else-if="cat.adoption_status === 2" class="status-badge pending">领养中</div>
           <div v-else class="status-badge available">待领养</div>
@@ -59,6 +59,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import catsApi from '../api/cats.js'
+import { resolveCatImageUrl } from '../utils/catImages.js'
 
 const cats = ref([])
 const loading = ref(false)
