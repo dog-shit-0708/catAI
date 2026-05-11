@@ -2,7 +2,6 @@
   <div class="about">
     <div class="about-hero">
       <h1 class="section-title">关于<span class="highlight">我们</span></h1>
-      <p class="section-subtitle">武汉科技大学校园流浪猫信息管理平台</p>
     </div>
 
     <!-- Mission Section -->
