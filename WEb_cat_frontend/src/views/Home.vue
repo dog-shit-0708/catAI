@@ -6,10 +6,11 @@
         <div class="hero-text">
           <div class="tag">WUST CAMPUS CATS</div>
           <h1 class="hero-title">
-            武汉科技大学<br>
-            <span class="highlight">校园流浪猫</span><br>
-            信息管理平台
+            毛毛务克蛋
           </h1>
+          <p class="hero-subtitle hero-subtitle-small">
+            武汉科技大学校园流浪猫信息管理平台
+          </p>
           <p class="hero-subtitle">
             在这里可以查询猫咪的具体信息，添加投喂记录，收藏你感兴趣的猫咪，与猫咪AI助手对话，进行AI识猫、了解领养、喂养、常见知识误区的对话。
           </p>
@@ -202,6 +203,13 @@
   margin-bottom: 2rem;
   opacity: 0.75;
   max-width: 380px;
+}
+
+.hero-subtitle-small {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
 .hero-buttons {
