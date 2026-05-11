@@ -17,7 +17,7 @@
     <div v-else-if="cats.length > 0" class="archives-grid">
       <router-link v-for="cat in cats" :key="cat.id" :to="`/cat/${cat.id}`" class="cat-card">
         <div class="cat-card-image">
-          <img :src="cat.profile_image ? (cat.profile_image.startsWith('http') ? cat.profile_image : '../../assets/images/' + cat.profile_image) : '../../assets/images/cat_01.jpg'" :alt="cat.name">
+          <img :src="cat.profile_image ? (cat.profile_image.startsWith('http') ? cat.profile_image : '/catAI/assets/images/' + cat.profile_image) : '/catAI/assets/images/cat_01.jpg'" :alt="cat.name">
           <div v-if="cat.adoption_status === 1" class="status-badge adopted">已领养</div>
           <div v-else-if="cat.adoption_status === 2" class="status-badge pending">领养中</div>
           <div v-else class="status-badge available">待领养</div>
@@ -85,8 +85,10 @@ async function loadCats() {
     const res = await catsApi.getCats(params)
     if (res.code === 200 && res.data) {
       // 按 ID 正序排列
-      cats.value = (res.data.data || []).sort((a, b) => a.id - b.id)
+      const sortedData = (res.data.data || []).sort((a, b) => a.id - b.id)
+      cats.value = sortedData
       pagination.total = res.data.total || 0
+      console.log('排序后的猫咪列表:', sortedData.map(c => ({ id: c.id, name: c.name })))
     }
   } catch (err) {
     console.error('获取猫咪列表失败:', err)
