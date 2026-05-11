@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="navbar-content">
-      <router-link to="/" class="logo">
+      <router-link to="/" class="logo" title="返回首页">
         <div class="logo-icon">🐱</div>
         <span>MEOWASSIST.</span>
       </router-link>
