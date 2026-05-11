@@ -106,7 +106,7 @@
           <input 
             v-model="inputMessage" 
             type="text" 
-            placeholder="输入消息与猫咪对话..."
+            placeholder="建国是什么性格？ 如何领养学校的流浪猫？"
             @keypress.enter="sendMessage('enter-key')"
             :disabled="sending || !currentConversationId"
           >
@@ -229,6 +229,9 @@ async function loadConversations() {
       if (conversations.length > 0 && !currentConversationId.value) {
         currentConversationId.value = conversations[0].id
         await loadMessages(conversations[0].id)
+      } else if (conversations.length === 0 && authStore.isLoggedIn) {
+        // 没有会话且已登录，自动创建新对话
+        await createNewConversation()
       }
     }
   } catch (err) {
