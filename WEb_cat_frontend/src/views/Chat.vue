@@ -155,6 +155,27 @@ const isProcessingSend = ref(false) // 防止重复发送
 
 // 本地缓存键名
 const CACHE_KEY = 'chat_messages_cache'
+const MAX_CACHE_CONVERSATIONS = 10
+const MAX_CACHE_MESSAGES_PER_CONVERSATION = 30
+
+function sanitizeMessagesForCache(msgList) {
+  return msgList
+    .slice(-MAX_CACHE_MESSAGES_PER_CONVERSATION)
+    .map((msg) => {
+      const cachedMsg = {
+        id: msg.id,
+        role: msg.role,
+        content: msg.content,
+        streaming: false
+      }
+
+      if (msg.imageUrl && !msg.imageUrl.startsWith('data:')) {
+        cachedMsg.imageUrl = msg.imageUrl
+      }
+
+      return cachedMsg
+    })
+}
 
 // 从localStorage加载缓存的消息
 function loadCachedMessages() {
@@ -175,13 +196,35 @@ function loadCachedMessages() {
 function saveMessagesToCache(conversationId, msgList) {
   try {
     const cached = loadCachedMessages()
+    const sanitizedMessages = sanitizeMessagesForCache(msgList)
     cached[conversationId] = {
-      messages: msgList,
+      messages: sanitizedMessages,
       timestamp: Date.now()
     }
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cached))
+
+    const trimmedCache = Object.fromEntries(
+      Object.entries(cached)
+        .sort(([, a], [, b]) => (b.timestamp || 0) - (a.timestamp || 0))
+        .slice(0, MAX_CACHE_CONVERSATIONS)
+    )
+
+    localStorage.setItem(CACHE_KEY, JSON.stringify(trimmedCache))
   } catch (e) {
     console.error('保存缓存失败:', e)
+
+    if (e?.name === 'QuotaExceededError') {
+      try {
+        const fallbackCache = {
+          [conversationId]: {
+            messages: sanitizeMessagesForCache(msgList),
+            timestamp: Date.now()
+          }
+        }
+        localStorage.setItem(CACHE_KEY, JSON.stringify(fallbackCache))
+      } catch (retryError) {
+        console.error('重试保存缓存失败:', retryError)
+      }
+    }
   }
 }
 
